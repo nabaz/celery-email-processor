@@ -11,11 +11,15 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-
+import environ
+environ.Env.read_env()  # reading .env file
+env = environ.Env(DEBUG=(bool, False),)
+DEBUG = os.environ.get('DEBUG')
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+# False if not in os.environ
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -26,7 +30,8 @@ SECRET_KEY = '*g@_e9hn5#wg3s5+z%oyf(_yd=m&ggslr-*^v6s8!%uax8)hzr'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+EMAIL1= os.environ.get('EMAIL1')
+EMAIL2=  os.environ.get('EMAIL2')
 # Application definition
 
 INSTALLED_APPS = [

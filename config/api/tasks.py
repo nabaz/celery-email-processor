@@ -6,6 +6,7 @@ from celery.utils.log import get_task_logger
 from celery.task.schedules import crontab
 from celery.decorators import periodic_task
 logger = get_task_logger(__name__)
+from django.conf import settings
 
 # @periodic_task(
 #     run_every=(crontab(minute='*/20')),
@@ -16,7 +17,7 @@ logger = get_task_logger(__name__)
 def send_email():
     """sends an email when feedback form is filled successfully"""
     logger.info("Sent feedback email")
-    email = SendEmail('nabaz.maaruf@aenetworks.com', ['nabaz@outlook.com,'], 'Hello', 'Hey hey hey')
+    email = SendEmail(settings.EMAIL1, [settings.EMAIL2,], 'Hello', 'Hey hey hey')
     
     return SendEmail.handler(email)
 
