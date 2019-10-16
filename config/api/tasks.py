@@ -7,6 +7,7 @@ from celery.task.schedules import crontab
 from celery.decorators import periodic_task
 logger = get_task_logger(__name__)
 from django.conf import settings
+from faker import Faker
 
 # @periodic_task(
 #     run_every=(crontab(minute='*/20')),
@@ -17,15 +18,17 @@ from django.conf import settings
 def send_email():
     """sends an email when feedback form is filled successfully"""
     logger.info("Sent feedback email")
-    email = SendEmail(settings.EMAIL1, [settings.EMAIL2,], 'Hello', 'Hey hey hey')
-    
+    fake = Faker()
+    fake_email = [ fake.email() for _ in range(49)]
+    email = SendEmail(settings.EMAIL1, fake_email, 'Hello', 'Hey hey hey')
+    print(fake_email)
     return SendEmail.handler(email)
 
 import boto3
 
 class SendEmail:
 
-    def __init__(self, email_from, email_to, email_subject, email_body):
+    def __init__(self, email_from, email_to = [], email_subject = '', email_body = ''):
 
         self.email_from = email_from
         self.email_to = email_to
