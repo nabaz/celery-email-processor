@@ -12,7 +12,7 @@ celery==4.3.0
 certifi==2019.9.11
 chardet==3.0.4
 Click==7.0
-Django==2.2.6
+Django==2.2.24
 django-environ==0.4.5
 docutils==0.15.2
 Faker==2.0.3
